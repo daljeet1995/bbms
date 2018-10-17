@@ -26,28 +26,39 @@
                     header("location:index.php");
                   }
                ?>
-               <h1>Donor Registration</h1>
+               
+               <h1>Exchange Blood List</h1>
                <center><div id="form">
                 <form action="" method="post">
                        <table>
                           <tr>
-                             <td width="200px" height="50px">Enter Name</td>
+                             <td width="200px" height="50px">Enter Name:</td>
                              <td width="200px" height="50px"><input type="text" name="name" placeholder="Enter Name"></td>
-                             <td width="200px" height="50px">Enter Father's Name</td>
+                             <td width="200px" height="50px">Enter Father's Name:</td>
                              <td width="200px" height="50px"><input type="text" name="fname" placeholder="Enter Father's Name"></td>
                           </tr>
 
                           <tr>
-                             <td width="200px" height="50px">Enter Address</td>
+                             <td width="200px" height="50px">Enter Address:</td>
                              <td width="200px" height="50px"><textarea name="address" rows="3"></textarea></td>
-                             <td width="200px" height="50px">Enter City</td>
+                             <td width="200px" height="50px">Enter City:</td>
                              <td width="200px" height="50px"><input type="text" name="city" placeholder="Enter City"></td>
                           </tr>
 
                           <tr>
-                             <td width="200px" height="50px">Enter Age</td>
+                             <td width="200px" height="50px">Enter Age:</td>
                              <td width="200px" height="50px"><input type="text" name="age" placeholder="Enter Age"></td>
-                             <td width="200px" height="50px">Select Blood Group</td>
+                             <td width="200px" height="50px">Enter E-Mail:</td>
+                             <td width="200px" height="50px"><input type="text" name="email" placeholder="Enter E-Mail"></td>
+                          </tr>
+
+                          <tr>
+                             <td width="200px" height="50px">Enter Mobile No:</td>
+                             <td width="200px" height="50px"><input type="text" name="mno" placeholder="Enter Mobile No"></td>
+                          </tr>
+
+                          <tr>
+                            <td width="200px" height="50px">Select Blood Group:</td>
                              <td width="200px" height="50px">
                                <select style="width: 158px;" name="bgroup">
                                   <option>O+</option>
@@ -56,13 +67,16 @@
 
                                </select>
                              </td>
-                          </tr>
 
-                          <tr>
-                             <td width="200px" height="50px">Enter E-Mail</td>
-                             <td width="200px" height="50px"><input type="text" name="email" placeholder="Enter E-Mail"></td>
-                             <td width="200px" height="50px">Enter Mobile No</td>
-                             <td width="200px" height="50px"><input type="text" name="mno" placeholder="Enter Mobile No"></td>
+                             <td width="200px" height="50px">Exchange Blood Group:</td>
+                             <td width="200px" height="50px">
+                               <select style="width: 158px;" name="exbgroup">
+                                  <option>O+</option>
+                                  <option>AB+</option>
+                                  <option>AB-</option>
+
+                               </select>
+                             </td>
                           </tr>
 
                           <tr>
@@ -82,26 +96,28 @@
                         $bgroup = $_POST['bgroup'];
                         $email = $_POST['email'];
                         $mno = $_POST['mno'];
+                          $q = $db->prepare("Insert into donor_registration (name,fname,address,city,age,bgroup,email,mno) values (:name,:fname,:address,:city,:age,:bgroup,:email,:mno)"); 
+
+                          $q->bindValue('name',$name);
+                          $q->bindValue('fname',$fname);
+                          $q->bindValue('address',$address);
+                          $q->bindValue('city',$city);
+                          $q->bindValue('age',$age);
+                          $q->bindValue('bgroup',$bgroup);
+                          $q->bindValue('email',$email);
+                          $q->bindValue('mno',$mno);
+
+                          if ($q->execute()) {
+                              echo "<script>alert('Donor Registration Successfull');</script>";
+                          }else {
+                              echo "<script>alert('Donor Registration Failed');</script>";
+                          }
 
 
-                          // $q = $db->prepare("Insert into donor_registration (name,fname,address,city,age,bgroup,email,mno) values (:name,:fname,:address,:city,:age,:bgroup,:email,:mno)"); 
+                      }
 
-                          // $q->bindValue('name',$name);
-                          // $q->bindValue('fname',$fname);
-                          // $q->bindValue('address',$address);
-                          // $q->bindValue('city',$city);
-                          // $q->bindValue('age',$age);
-                          // $q->bindValue('bgroup',$bgroup);
-                          // $q->bindValue('email',$email);
-                          // $q->bindValue('mno',$mno);
 
-                          // if ($q->execute()) {
-                          //     echo "<script>alert('Donor Registration Successfull');</script>";
-                          // }else {
-                          //     echo "<script>alert('Donor Registration Failed');</script>";
-                          // }
-                        }
-                    ?>
+                   ?>
                 </div></center> 
                
            </div>
